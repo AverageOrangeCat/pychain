@@ -1,27 +1,58 @@
-from pychain import Pychain
-import shlex
-import sys
+import time
 
-print("---{ PYCHAIN V.1.0.0 }---")
-host = input("Host: ")
-port = input("Port: ")
+from server import Server
 
-server = Pychain(host, int(port))
-command = []
+server_00 = Server("127.0.0.1", 8880)
+server_01 = Server("127.0.0.1", 8881)
+server_02 = Server("127.0.0.1", 8882)
+server_03 = Server("127.0.0.1", 8883)
+server_04 = Server("127.0.0.1", 8884)
 
-while True:
-    command = shlex.split(input(">> "))
+server_00.print_server_data()
+server_01.print_server_data()
+server_02.print_server_data()
+server_03.print_server_data()
+server_04.print_server_data()
+print("============================================================================")
 
-    if len(command) == 1 and command[0] == "help":
-        print("---{ HELP }---")
-        print("- connect <HOST> <PORT>")
-        print("- chunk <MESSAGE>")
-        print("- info")
-    if len(command) == 3 and command[0] == "connect":
-        server.add_connection(command[1], int(command[2]))
-    elif len(command) == 2 and command[0] == "chunk":
-        server.add_chunk(command[1])
-    elif len(command) == 1 and command[0] == "info":
-        server.print_data("%s::%s" % (host, port))
-    else:
-        print("Error: Invalid command '%s'" % shlex.join(command))
+server_00.add_connection("127.0.0.1", 8881)
+server_00.add_connection("127.0.0.1", 8882)
+server_02.add_connection("127.0.0.1", 8883)
+server_02.add_connection("127.0.0.1", 8884)
+
+server_00.print_server_data()
+server_01.print_server_data()
+server_02.print_server_data()
+server_03.print_server_data()
+server_04.print_server_data()
+print("============================================================================")
+
+time.sleep(3)
+
+server_00.print_server_data()
+server_01.print_server_data()
+server_02.print_server_data()
+server_03.print_server_data()
+server_04.print_server_data()
+print("============================================================================")
+
+server_00.add_block("Hello World!")
+server_01.add_block("Go!")
+
+server_00.print_server_data()
+server_01.print_server_data()
+server_02.print_server_data()
+server_03.print_server_data()
+server_04.print_server_data()
+print("============================================================================")
+
+time.sleep(30)
+
+server_00.print_server_data()
+server_01.print_server_data()
+server_02.print_server_data()
+server_03.print_server_data()
+server_04.print_server_data()
+print("============================================================================")
+
+print("END!")
